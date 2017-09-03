@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
+import invitations.model.Guest;
 import invitations.model.Person;
 import invitations.model.service.PersonService;
 
@@ -42,11 +43,16 @@ public class PersonController {
 		return "addPerson";
 	}
 
-	@RequestMapping(value = "/addGuestView/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/addGuestView/{id}", method = RequestMethod.GET)
 	public String handleAddGuestView(@PathVariable long id, ModelMap model) {
 		Person p = personService.getPerson(id);
+		if (p != null) {
+			List<Guest> list = personService.getGuests(id);
+			System.out.println(list);
+			p.setGuests(list);
+		}
 		model.addAttribute("person", p);
-		return "addPerson";
+		return "viewAccompanyingGuests";
 	}
 
 	@RequestMapping(value="/edit/{id}", method=RequestMethod.GET)
@@ -70,11 +76,6 @@ public class PersonController {
 	@ResponseBody
 	public List<Person> handle() throws JsonProcessingException {
 		return personService.getAll();
-		/*List<Person> list = personService.getAll();
-		final SimpleFilterProvider filter = new SimpleFilterProvider();
-		filter.addFilter("Guest", SimpleBeanPropertyFilter.serializeAllExcept("guests"));
-		ObjectMapper objectMapper = new ObjectMapper();
-		return new ResponseEntity<>(objectMapper.writer(filter).writeValueAsString(list), HttpStatus.OK);*/
 	}
 
 	@RequestMapping(value = "/viewinvitees", method = RequestMethod.GET)
