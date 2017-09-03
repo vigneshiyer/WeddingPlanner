@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -57,7 +58,7 @@ public class Person {
 
 	@Column(name="mobilephone", nullable = true)
 	long mobilePhone;
- 
+
 	@Column(name="landline", nullable = true)
 	long landline;
 
@@ -68,6 +69,7 @@ public class Person {
 	String email2;
 
 	@OneToMany(mappedBy="person", cascade=CascadeType.ALL)
+	@JsonIgnore
 	@JsonManagedReference
 	List<Guest> guests;
 }
