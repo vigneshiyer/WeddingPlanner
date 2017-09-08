@@ -14,7 +14,6 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import invitations.model.Accommodation;
 import invitations.model.Guest;
 import invitations.model.Person;
 import invitations.model.dao.AbstractDao;
@@ -80,29 +79,7 @@ public class PersonDaoImpl extends AbstractDao<Integer, Person> implements Perso
 	}
 
 	@Override
-	public void addGuest(Guest guest) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void addAccommodation(Accommodation accommodation) {
-
-	}
-
-	@Override
-	public Accommodation getAccommodation(Long personId) {
-		Session session = sessionFactory.getCurrentSession();
-		Person person = session.get(Person.class, personId);
-		if (person == null) {
-			return Accommodation.builder().build();
-		}
-		List<Guest> guests = person.getGuests();
-		return null;
-	}
-
-	@Override
-	public List<Guest> getGuests(Long personId) {
+	public List<Guest> getGuestsWithAccommodation(Long personId) {
 		Session session = sessionFactory.getCurrentSession();
 		Person person = session.get(Person.class, personId);
 		if (person == null) {

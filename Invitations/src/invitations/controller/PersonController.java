@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import invitations.model.Guest;
 import invitations.model.Person;
 import invitations.model.service.PersonService;
 
@@ -46,11 +45,10 @@ public class PersonController {
 	@RequestMapping(value = "/addGuestView/{id}", method = RequestMethod.GET)
 	public String handleAddGuestView(@PathVariable long id, ModelMap model) {
 		Person p = personService.getPerson(id);
-		if (p != null) {
-			List<Guest> list = personService.getGuests(id);
-			System.out.println(list);
-			p.setGuests(list);
+		if (p == null) {
+			p = Person.builder().build();
 		}
+		p.setGuests(personService.getGuestsWithAccommodation(id));
 		model.addAttribute("person", p);
 		return "viewAccompanyingGuests";
 	}
@@ -95,5 +93,16 @@ public class PersonController {
 		personService.getPerson(id);
 	}
 
+	@RequestMapping(value="/viewpersonwithguests/{id}", method=RequestMethod.GET)
+	public String getPersonWithGuests(@PathVariable long id, ModelMap model) throws IOException {
+		Person p = personService.getPerson(id);
+		if (p == null) {
+			p = Person.builder().build();
+		} else {
+			p.setGuests(personService.getGuestsWithAccommodation(id));
+		}
+		model.addAttribute("person", p);
+		return "guestView";
+	}
 
 }

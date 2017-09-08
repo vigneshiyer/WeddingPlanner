@@ -50,7 +50,7 @@ $().ready(function() {
 						'data': 'personId',
 						'sorting': false,
 						'render': function(data) {
-							return "<button onClick='viewGuestsFor("+data+");'> Manage </button>";
+							return "<a href='/ui/invitations/guestsFor("+data+");'> Manage </a>";
 						}
 					},
 					{

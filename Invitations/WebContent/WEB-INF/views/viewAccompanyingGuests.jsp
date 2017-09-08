@@ -5,8 +5,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="/ui/js/viewGuests.js"></script>
 </head>
-<body>
+<body onload="viewGuestsFor(${person.personId});">
 <div style="width:100%; text-align:center;">
 	<table id="tblViewGuests">
 		<thead>

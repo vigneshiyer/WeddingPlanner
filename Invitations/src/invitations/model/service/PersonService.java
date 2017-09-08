@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import invitations.model.Accommodation;
 import invitations.model.Guest;
 import invitations.model.Person;
 import invitations.model.dao.PersonDao;
@@ -39,21 +38,13 @@ public class PersonService {
 		dao.deletePerson(personId);
 	}
 
-	public void addGuest(Guest guest) {
-		dao.addGuest(guest);
-	}
-
-	public void addAccommodation(Accommodation accommodation) {
-		dao.addAccommodation(accommodation);
-	}
-
-	public Accommodation getAccommodation(Long personId) {
-		return dao.getAccommodation(personId);
-	}
-
-	public List<Guest> getGuests(Long personId) {
+	public List<Guest> getGuestsWithAccommodation(Long personId) {
 		Person p = dao.getPerson(personId);
 		Hibernate.initialize(p.getGuests());
-		return p.getGuests();
+		List<Guest> list = p.getGuests();
+		list.stream().forEach(ele -> {
+			Hibernate.initialize(ele.getAccommodations());
+		});
+		return list;
 	}
 }
