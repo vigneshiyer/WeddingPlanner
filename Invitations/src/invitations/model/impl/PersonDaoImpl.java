@@ -85,6 +85,6 @@ public class PersonDaoImpl extends AbstractDao<Integer, Person> implements Perso
 		if (person == null) {
 			return Collections.emptyList();
 		}
-		return person.getGuests();
+		return person.getGuest();
 	}
 }

@@ -31,7 +31,7 @@ public class PersonService {
 	}
 
 	public List<Person> getAll() {
-		return dao.getAllPersons();
+		return  dao.getAllPersons();
 	}
 
 	public void delete(Long personId) {
@@ -40,8 +40,8 @@ public class PersonService {
 
 	public List<Guest> getGuestsWithAccommodation(Long personId) {
 		Person p = dao.getPerson(personId);
-		Hibernate.initialize(p.getGuests());
-		List<Guest> list = p.getGuests();
+		Hibernate.initialize(p.getGuest());
+		List<Guest> list = p.getGuest();
 		list.stream().forEach(ele -> {
 			Hibernate.initialize(ele.getAccommodations());
 		});

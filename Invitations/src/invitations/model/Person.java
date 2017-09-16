@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,16 +14,17 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Builder
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name="person")
 @AllArgsConstructor
@@ -67,8 +67,7 @@ public class Person {
 	@Column(name="email2", nullable = true)
 	String email2;
 
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="person", cascade=CascadeType.ALL)
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@OneToMany(mappedBy="person", cascade=CascadeType.ALL)
 	@JsonManagedReference
-	List<Guest> guests;
+	List<Guest> guest;
 }

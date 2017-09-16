@@ -48,7 +48,7 @@ public class PersonController {
 		if (p == null) {
 			p = Person.builder().build();
 		}
-		p.setGuests(personService.getGuestsWithAccommodation(id));
+		p.setGuest(personService.getGuestsWithAccommodation(id));
 		model.addAttribute("person", p);
 		return "viewAccompanyingGuests";
 	}
@@ -99,10 +99,22 @@ public class PersonController {
 		if (p == null) {
 			p = Person.builder().build();
 		} else {
-			p.setGuests(personService.getGuestsWithAccommodation(id));
+			p.setGuest(personService.getGuestsWithAccommodation(id));
 		}
 		model.addAttribute("person", p);
 		return "guestView";
+	}
+
+	@RequestMapping(value="/viewpersonguests/{id}", method=RequestMethod.GET)
+	@ResponseBody
+	public Person getPersonWithGuestsObj(@PathVariable long id, ModelMap model) throws IOException {
+		Person p = personService.getPerson(id);
+		if (p == null) {
+			p = Person.builder().build();
+		} else {
+			p.setGuest(personService.getGuestsWithAccommodation(id));
+		}
+		return p;
 	}
 
 }
