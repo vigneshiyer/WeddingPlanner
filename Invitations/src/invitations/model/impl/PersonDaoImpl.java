@@ -58,6 +58,20 @@ public class PersonDaoImpl extends AbstractDao<Integer, Person> implements Perso
 	}
 
 	@Override
+	public List<Person> getAllPersons(final int pageNum, final int pageSize) {
+		Session session = sessionFactory.getCurrentSession();
+		CriteriaBuilder builder = session.getCriteriaBuilder();
+		CriteriaQuery<Person> query = builder.createQuery(Person.class);
+		Root<Person> root = query.from(Person.class);
+		query.select(root);
+		Query<Person> q = session.createQuery(query);
+		final int total = pageNum * pageSize;
+		q.setFirstResult(total - pageSize);
+		q.setMaxResults(pageSize);
+		return q.getResultList();
+	}
+
+	@Override
 	public List<Person> getAllPersons() {
 		Session session = sessionFactory.getCurrentSession();
 		CriteriaBuilder builder = session.getCriteriaBuilder();

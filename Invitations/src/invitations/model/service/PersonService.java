@@ -30,6 +30,10 @@ public class PersonService {
 		dao.updatePerson(p);
 	}
 
+	public List<Person> getAll(int startPage, int pageSize) {
+		return  dao.getAllPersons(startPage, pageSize);
+	}
+
 	public List<Person> getAll() {
 		return  dao.getAllPersons();
 	}

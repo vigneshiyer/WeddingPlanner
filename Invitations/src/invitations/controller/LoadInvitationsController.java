@@ -1,13 +1,13 @@
 package invitations.controller;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -15,45 +15,45 @@ import com.google.common.collect.Lists;
 
 import invitations.constants.Constants;
 import invitations.model.Person;
+import invitations.model.service.PersonService;
 
 @Controller
 @RequestMapping("/invitations")
 public class LoadInvitationsController {
 
 	private static final String PRINT_PREVIEW_VIEW_NAME = "printPreview";
-	private static final String VIEW_INVITEES_VIEW_NAME = "viewInvitees";
+	private static final String PRINT_PREVIEW_PAGE_VIEW_NAME = "templates/tableView";
 	private static final String HOME_VIEW_NAME = "home";
+
+	@Autowired
+	PersonService personService;
 
 	@RequestMapping("/printpreview")
 	public ModelAndView handleRequest() throws Exception {
 		// TODO Auto-generated method stub
 		ModelAndView view = new ModelAndView(PRINT_PREVIEW_VIEW_NAME);
-		Person p = Person.builder()
-
-				.city("Mumbai")
-				.name("Vignesh Iyer")
-				.streetAddress("47/203, Parijat CHS, Manisha Nagar")
-				.state("Maharashtra")
-				.pincode(400605L)
-
-				.build();
-
-		Person q = Person.builder()
-
-				.city("Mumbai")
-				.name("Vigu Iyer")
-				.streetAddress("47/203, Parijat CHS, Manisha Nagar")
-				.state("Maharashtra")
-				.pincode(400605L)
-
-				.build();
-
-		List<Person> personList = Stream.of(p, q, p, q, p, q, p , q, p ,q, p, q, p, q, p, q).collect(Collectors.toList());
-		List<List<Person>> listOfPersonsList = Lists.partition(personList, Constants.NO_OF_PERSONS_PER_ROW);
-
-		view.addObject("listOfPersonsList", listOfPersonsList);
+		List<Person> list = personService.getAll(1,
+				Constants.NO_OF_PERSONS_PER_ROW * Constants.NO_OF_ROWS);
+		List<List<Person>> newList = Lists.partition(list, Constants.NO_OF_PERSONS_PER_ROW);
+		view.addObject("listOfPersonsList", newList);
 		return view;
 	}
+
+	@RequestMapping("/previewpage/{page}")
+	public ModelAndView handlePreviewPage(@PathVariable int page) throws Exception {
+		// TODO Auto-generated method stub
+		ModelAndView view = new ModelAndView(PRINT_PREVIEW_PAGE_VIEW_NAME);
+		if (page < 1) {
+			page = 1;
+		}
+		List<Person> list = personService.getAll(page,
+				Constants.NO_OF_PERSONS_PER_ROW * Constants.NO_OF_ROWS);
+		List<List<Person>> newList = Lists.partition(list, Constants.NO_OF_PERSONS_PER_ROW);
+		view.addObject("listOfPersonsList", newList);
+		return view;
+	}
+
+
 
 	@RequestMapping("/home")
 	public ModelAndView showHome(@ModelAttribute("person")Person person,

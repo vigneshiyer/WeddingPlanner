@@ -8,7 +8,7 @@ import invitations.model.Menu;
 
 public class Constants {
 	public static final int NO_OF_PERSONS_PER_ROW = 4;
-	public static final int NO_OF_PERSONS_PER_PAGE = 16;
+	public static final int NO_OF_ROWS = 6;
 
 	public static final List<Menu> menu = ImmutableList.of(Menu.builder()
 			.menuItem("View Invitees")

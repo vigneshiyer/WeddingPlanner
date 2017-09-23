@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
+import invitations.constants.Constants;
 import invitations.model.Person;
 import invitations.model.service.PersonService;
 
@@ -27,6 +28,8 @@ public class PersonController {
 
 	@Autowired
 	PersonService personService;
+
+	final static int pageSize = Constants.NO_OF_PERSONS_PER_ROW * Constants.NO_OF_ROWS;
 
 	@RequestMapping(value = "/addperson", method = RequestMethod.POST)
 	public void handleAddPerson(@ModelAttribute("person") Person person, BindingResult result,
@@ -70,9 +73,15 @@ public class PersonController {
 		response.sendRedirect("/ui/invitations/viewinvitees");
 	}
 
+	@RequestMapping(value = "/getallpersons/{startPage}", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Person> getAllPersonsByPage(@PathVariable int startPage) throws JsonProcessingException {
+		return personService.getAll(startPage, pageSize);
+	}
+
 	@RequestMapping(value = "/getallpersons", method = RequestMethod.GET)
 	@ResponseBody
-	public List<Person> handle() throws JsonProcessingException {
+	public List<Person> getAllPersons() throws JsonProcessingException {
 		return personService.getAll();
 	}
 

@@ -15,6 +15,6 @@
 		<span>${person.pincode}</span>
 	</div>
 	<div id="phone"> 
-		<span>Phone: ${person.phone}</span>	
+		<span>Phone: ${person.mobilePhone}</span>	
 	</div>
 </div>
