@@ -35,6 +35,7 @@ public class HelloWorldConfiguration extends WebMvcConfigurerAdapter {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/js/**").addResourceLocations("/WEB-INF/js/");
+		registry.addResourceHandler("/css/**").addResourceLocations("/WEB-INF/css/");
 	}
 
 	// equivalent for <mvc:default-servlet-handler/> tag

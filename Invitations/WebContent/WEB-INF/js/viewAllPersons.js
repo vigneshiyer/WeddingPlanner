@@ -14,6 +14,7 @@ $().ready(function() {
 				data: data,
 				columns: [
 					{'data' : 'name'},
+					{'data' : 'relation'},
 					{
 						'data': 'streetAddress',
 						'sorting': false,
@@ -34,17 +35,9 @@ $().ready(function() {
 						}
 					},
 					{
-						'data': 'mobilePhone',
+						'data': 'phone',
 						'sorting': false,
-						'render': function(data, type, full) {
-							if (!data && !full['landline']) {
-								return "N/A";
-							} else if (!full['landline']) {
-								return data;
-							} else {
-								return data + ", " + full['landline'];
-							}
-						}
+						
 					},
 					{
 						'data': 'personId',
@@ -59,7 +52,7 @@ $().ready(function() {
 						'render': function(data) {
 							return "<button onClick='editPerson("+data+");'> " +
 									"Edit </button> <br/> " +
-									"<button onClick='deletePerson("+data+");'> " +
+									"<button style='visibility:hidden;' onClick='deletePerson("+data+");'> " +
 											"Delete </button>";
 						}
 					}

@@ -36,6 +36,7 @@ public class LoadInvitationsController {
 				Constants.NO_OF_PERSONS_PER_ROW * Constants.NO_OF_ROWS);
 		List<List<Person>> newList = Lists.partition(list, Constants.NO_OF_PERSONS_PER_ROW);
 		view.addObject("listOfPersonsList", newList);
+		view.addObject("numberOfPersons", Constants.NO_OF_PERSONS_PER_ROW * Constants.NO_OF_ROWS);
 		return view;
 	}
 
@@ -43,11 +44,11 @@ public class LoadInvitationsController {
 	public ModelAndView handlePreviewPage(@PathVariable int page) throws Exception {
 		// TODO Auto-generated method stub
 		ModelAndView view = new ModelAndView(PRINT_PREVIEW_PAGE_VIEW_NAME);
-		if (page < 1) {
-			page = 1;
-		}
 		List<Person> list = personService.getAll(page,
 				Constants.NO_OF_PERSONS_PER_ROW * Constants.NO_OF_ROWS);
+		if (list.size() == 0) {
+			return new ModelAndView();
+		}
 		List<List<Person>> newList = Lists.partition(list, Constants.NO_OF_PERSONS_PER_ROW);
 		view.addObject("listOfPersonsList", newList);
 		return view;

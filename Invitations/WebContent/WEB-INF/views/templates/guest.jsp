@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div id="guest_${person.personId}">
 	<div id="name"> 
-		<span>${person.name}</span>	
+		<span><strong>${person.name}</strong></span>	
 	</div>
 	<div id="streetaddress"> 
 		<span>${person.streetAddress}</span>	
@@ -14,7 +14,12 @@
 	<div id="pincode">
 		<span>${person.pincode}</span>
 	</div>
+	<c:choose>
+	<c:when test="${not empty person.phone}">
 	<div id="phone"> 
-		<span>Phone: ${person.mobilePhone}</span>	
+		<span>Phone: ${person.phone}</span>	
 	</div>
+	</c:when>	
+	</c:choose>
+	
 </div>

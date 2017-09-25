@@ -28,6 +28,7 @@
 		<thead>
 		<tr>
 		<th> Name </th>
+		<th> Relation </th>
 		<th> Address </th>
 		<th> Email(s) </th>
 		<th> Phone </th>

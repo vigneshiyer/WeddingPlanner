@@ -6,12 +6,24 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Guest Entries</title>
+<script src="/ui/js/printPreview.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+
+<!-- Bootstrap -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="/ui/css/main.css">
 </head>
 <body>
-<input type="hidden" id="page" value="1"/>
-<input type="button" value = "previous"/> &nbsp;
-<input type="button" value = "next"/>
-<br/><br/>
+<p align=right>
+<c:out value="Showing ${numberOfPersons} persons on a page"/> <br/> 
+Page: <span id="page">1</span> <br/>
+<button id="brnPrint" class="btn-info" onclick="window.print();">Print</button> &nbsp;
+<button id="btnPrev" value ="<- Previous" class="btn-info" onclick="prev();"><- Previous</button> &nbsp;
+<button id="btnNext" value ="Next ->" class="btn-info" onclick="next();">Next -></button>
+</p>
+<div id="previewContent">
 <jsp:include page="templates/tableView.jsp"></jsp:include>
+</div>
 </body>
 </html>

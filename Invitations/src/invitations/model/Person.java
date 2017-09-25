@@ -53,19 +53,40 @@ public class Person {
 	String state;
 
 	@Column(name="pincode", nullable = true)
-	long pincode;
+	String pincode;
 
-	@Column(name="mobilephone", nullable = true)
-	long mobilePhone;
-
-	@Column(name="landline", nullable = true)
-	long landline;
+	@Column(name="phone", nullable = true)
+	String phone;
 
 	@Column(name="email1", nullable = true)
 	String email1;
 
 	@Column(name="email2", nullable = true)
 	String email2;
+
+	@Column(name="relation", nullable = true)
+	String relation;
+
+	@Column(name="invited_13", nullable = true)
+	String invited_13;
+
+	@Column(name="invited_14", nullable = true)
+	String invited_14;
+
+	@Column(name="invited_15", nullable = true)
+	String invited_15;
+
+	@Column(name="invitation_printed", nullable = true)
+	String invitation_printed;
+
+	@Column(name="email_status", nullable = true)
+	String email_status;
+
+	@Column(name="phone_status", nullable = true)
+	String phone_status;
+
+	@Column(name="ignore_for_print", nullable = true)
+	String ignore_for_print;
 
 	@OneToMany(mappedBy="person", cascade=CascadeType.ALL)
 	@JsonManagedReference

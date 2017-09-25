@@ -48,12 +48,19 @@ public class PersonDaoImpl extends AbstractDao<Integer, Person> implements Perso
 		person.setCity(p.getCity());
 		person.setEmail1(p.getEmail1());
 		person.setEmail2(p.getEmail2());
-		person.setLandline(p.getLandline());
-		person.setMobilePhone(p.getMobilePhone());
+		person.setPhone(p.getPhone());
+		person.setEmail_status(p.getEmail_status());
+		person.setInvitation_printed(p.getInvitation_printed());
+		person.setInvited_13(p.getInvited_13());
+		person.setInvited_14(p.getInvited_14());
+		person.setInvited_15(p.getInvited_15());
+		person.setRelation(p.getRelation());
+		person.setPhone_status(p.getPhone_status());
 		person.setName(p.getName());
 		person.setPincode(p.getPincode());
 		person.setState(p.getState());
 		person.setStreetAddress(p.getStreetAddress());
+		person.setIgnore_for_print(p.getIgnore_for_print());
 		session.save(person);
 	}
 
@@ -63,8 +70,7 @@ public class PersonDaoImpl extends AbstractDao<Integer, Person> implements Perso
 		CriteriaBuilder builder = session.getCriteriaBuilder();
 		CriteriaQuery<Person> query = builder.createQuery(Person.class);
 		Root<Person> root = query.from(Person.class);
-		query.select(root);
-		Query<Person> q = session.createQuery(query);
+		Query<Person> q = session.createQuery("select p from Person p where p.invitation_printed = 'NP' and p.ignore_for_print='N' order by p.name");
 		final int total = pageNum * pageSize;
 		q.setFirstResult(total - pageSize);
 		q.setMaxResults(pageSize);

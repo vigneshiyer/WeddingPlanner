@@ -1,11 +1,12 @@
+var $dialog;
 function editPerson(id) {
-	var $dialog = $('<div></div>')
+	$dialog = $('<div></div>')
 	.load('/ui/invitations/edit/'+id)
 	.dialog({
 		autoOpen: false,
 		title: 'Edit Person',
-		width: 300,
-		height: 400,
+		width: 500,
+		height: 500,
 		modal: true,
 	});	
 	$dialog.dialog('open');

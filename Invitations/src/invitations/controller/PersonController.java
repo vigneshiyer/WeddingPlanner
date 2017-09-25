@@ -2,6 +2,7 @@ package invitations.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.google.common.collect.ImmutableMap;
 
 import invitations.constants.Constants;
 import invitations.model.Person;
@@ -30,6 +32,12 @@ public class PersonController {
 	PersonService personService;
 
 	final static int pageSize = Constants.NO_OF_PERSONS_PER_ROW * Constants.NO_OF_ROWS;
+
+	final static Map<String, String> invited = ImmutableMap.of("NI", "Not Invited", "I", "Invited");
+	final static Map<String, String> emailed = ImmutableMap.of("NE", "Not Emailed", "I", "Emailed");
+	final static Map<String, String> phoncecalled = ImmutableMap.of("NC", "Not Called", "C", "Called");
+	final static Map<String, String> ignore = ImmutableMap.of("N", "No", "Y", "Yes");
+	final static Map<String, String> printed = ImmutableMap.of("NP", "Not Printed", "P", "Printed");
 
 	@RequestMapping(value = "/addperson", method = RequestMethod.POST)
 	public void handleAddPerson(@ModelAttribute("person") Person person, BindingResult result,
@@ -63,6 +71,12 @@ public class PersonController {
 			return "home";
 		}
 		model.addAttribute("person", p);
+		model.addAttribute("invitedMap", invited);
+		model.addAttribute("emailMap", emailed);
+		model.addAttribute("phoneMap", phoncecalled);
+		model.addAttribute("ignorePrintMap", ignore);
+		model.addAttribute("printedMap", printed);
+
 		return "editPerson";
 	}
 
