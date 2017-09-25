@@ -19,8 +19,9 @@ $().ready(function() {
 						'data': 'streetAddress',
 						'sorting': false,
 						'render': function(data, type, full) {
-							return data + ", " + full['city'] + ", " 
-							+ full['state'] + ", " + full['pincode']
+							var str = data + ", " + full['city'] + ", " 
+							+ full['state'] + ", " + full['pincode'];
+							return "<p style='word-break: break-all;white-space: normal;'>"+str+"</p>";
 						}
 					},
 					{
@@ -36,7 +37,12 @@ $().ready(function() {
 					},
 					{
 						'data': 'phone',
-						'sorting': false,
+						'sorting': false
+						
+					},
+					{
+						'data': 'invited_13',
+						'sorting': false
 						
 					},
 					{
