@@ -9,12 +9,14 @@ $().ready(function() {
 		method: 'get',
 		dataType: 'json',
 		success: function(data) {
-			console.log(data);
 			$("#tblViewInvitees").dataTable({
+				lengthMenu: ["50", "100", "200"],
 				data: data,
 				columns: [
 					{'data' : 'name'},
-					{'data' : 'relation'},
+					{'data' : 'relation',
+						'sorting': false
+					},
 					{
 						'data': 'streetAddress',
 						'sorting': false,
@@ -29,9 +31,9 @@ $().ready(function() {
 						'sorting': false,
 						'render': function(data, type, full) {
 							if (!full['email2']) {
-								return data;
+								return "<p style='word-break: break-all;white-space: normal;'>"+data+"</p>";
 							} else {
-								return data + ", " + full['email2'];
+								return "<p style='word-break: break-all;white-space: normal;'>"+data + ", " + full['email2']+"</p>";
 							}
 						}
 					},
@@ -40,12 +42,6 @@ $().ready(function() {
 						'sorting': false
 						
 					},
-					{'data': 'invited_13',
-						'sorting': false},
-					{'data': 'invited_14',
-							'sorting': false},
-					{'data': 'invited_15',
-								'sorting': false},
 					{'data': 'invitation_printed',
 									'sorting': false},
 					{'data': 'email_status',
@@ -53,6 +49,9 @@ $().ready(function() {
 					{'data': 'phone_status',
 					 'sorting': false
 					 },
+					 {'data': 'ignore_for_print',
+						 'sorting': false
+						 },
 					/*{
 						'data': 'personId',
 						'sorting': false,

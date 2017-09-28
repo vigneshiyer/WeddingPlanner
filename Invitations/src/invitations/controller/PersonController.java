@@ -35,7 +35,7 @@ public class PersonController {
 
 	final static Map<String, String> invited = ImmutableMap.of("NI", "Not Invited", "I", "Invited");
 	final static Map<String, String> emailed = ImmutableMap.of("NE", "Not Emailed", "I", "Emailed");
-	final static Map<String, String> phoncecalled = ImmutableMap.of("NC", "Not Called", "C", "Called");
+	final static Map<String, String> phonecalled = ImmutableMap.of("NC", "Not Called", "C", "Called");
 	final static Map<String, String> ignore = ImmutableMap.of("N", "No", "Y", "Yes");
 	final static Map<String, String> printed = ImmutableMap.of("NP", "Not Printed", "P", "Printed");
 
@@ -50,6 +50,11 @@ public class PersonController {
 	public String handleView(ModelMap model) {
 		Person p = Person.builder().build();
 		model.addAttribute("person", p);
+		model.addAttribute("invitedMap", invited);
+		model.addAttribute("emailMap", emailed);
+		model.addAttribute("phoneMap", phonecalled);
+		model.addAttribute("ignorePrintMap", ignore);
+		model.addAttribute("printedMap", printed);
 		return "addPerson";
 	}
 
@@ -73,7 +78,7 @@ public class PersonController {
 		model.addAttribute("person", p);
 		model.addAttribute("invitedMap", invited);
 		model.addAttribute("emailMap", emailed);
-		model.addAttribute("phoneMap", phoncecalled);
+		model.addAttribute("phoneMap", phonecalled);
 		model.addAttribute("ignorePrintMap", ignore);
 		model.addAttribute("printedMap", printed);
 

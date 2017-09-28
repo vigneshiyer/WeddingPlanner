@@ -41,12 +41,10 @@
 		<th> Address </th>
 		<th> Email(s) </th>
 		<th> Phone </th>
-		<th> 13th </th>
-		<th> 14th </th>
-		<th> 15th </th>
 		<th> Printed </th>
 		<th> Email Status </th>
 		<th> Call Status </th>
+		<th> Ignore For Print </th>
 		<th> Action </th>
 		</tr>
 		</thead>
