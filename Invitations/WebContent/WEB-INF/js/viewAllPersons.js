@@ -4,12 +4,12 @@ $().ready(function() {
 	var diff = new Date(theDay - today);
 	
 	$("#countDown").text(Math.round(diff/1000/60/60/24) + " days to go");
-	
 	$.ajax({
 		url: '/ui/invitations/getallpersons',
 		method: 'get',
 		dataType: 'json',
 		success: function(data) {
+			console.log(data);
 			$("#tblViewInvitees").dataTable({
 				data: data,
 				columns: [
@@ -40,18 +40,26 @@ $().ready(function() {
 						'sorting': false
 						
 					},
-					{
-						'data': 'invited_13',
-						'sorting': false
-						
-					},
-					{
+					{'data': 'invited_13',
+						'sorting': false},
+					{'data': 'invited_14',
+							'sorting': false},
+					{'data': 'invited_15',
+								'sorting': false},
+					{'data': 'invitation_printed',
+									'sorting': false},
+					{'data': 'email_status',
+										'sorting': false},
+					{'data': 'phone_status',
+					 'sorting': false
+					 },
+					/*{
 						'data': 'personId',
 						'sorting': false,
 						'render': function(data) {
 							return "<a href='/ui/invitations/guestsFor("+data+");'> Manage </a>";
 						}
-					},
+					}*/
 					{
 						'data': 'personId',
 						'sorting': false,
