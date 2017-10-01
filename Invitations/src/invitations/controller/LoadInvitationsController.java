@@ -28,16 +28,28 @@ public class LoadInvitationsController {
 	@Autowired
 	PersonService personService;
 
-	@RequestMapping("/printpreview")
-	public ModelAndView handleRequest() throws Exception {
-		// TODO Auto-generated method stub
+	private ModelAndView buildViewForPrint(int page) {
 		ModelAndView view = new ModelAndView(PRINT_PREVIEW_VIEW_NAME);
-		List<Person> list = personService.getAll(1,
+		List<Person> list = personService.getAll(page,
 				Constants.NO_OF_PERSONS_PER_ROW * Constants.NO_OF_ROWS);
 		List<List<Person>> newList = Lists.partition(list, Constants.NO_OF_PERSONS_PER_ROW);
 		view.addObject("listOfPersonsList", newList);
 		view.addObject("numberOfPersons", Constants.NO_OF_PERSONS_PER_ROW * Constants.NO_OF_ROWS);
+		view.addObject("pagenum", page);
 		return view;
+	}
+
+	@RequestMapping("/printpreview")
+	public ModelAndView handleRequest() throws Exception {
+		// TODO Auto-generated method stub
+		return buildViewForPrint(1);
+	}
+
+
+	@RequestMapping("/printpreview/{page}")
+	public ModelAndView handleRequestForPrint(@PathVariable int page) throws Exception {
+		// TODO Auto-generated method stub
+		return buildViewForPrint(page);
 	}
 
 	@RequestMapping("/previewpage/{page}")
@@ -51,6 +63,7 @@ public class LoadInvitationsController {
 		}
 		List<List<Person>> newList = Lists.partition(list, Constants.NO_OF_PERSONS_PER_ROW);
 		view.addObject("listOfPersonsList", newList);
+		view.addObject("pagenum", page);
 		return view;
 	}
 

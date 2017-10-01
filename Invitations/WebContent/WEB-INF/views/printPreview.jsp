@@ -11,17 +11,17 @@
   integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
   crossorigin="anonymous"></script>
 
-<!-- Bootstrap -->
+<!-- Bootstrap
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet" href="/ui/css/main.css">
+<link rel="stylesheet" href="/ui/css/main.css"> -->
 
 <script src="/ui/js/printPreview.js"></script>
 </head>
 <body>
 <p align=right>
 <c:out value="Showing ${numberOfPersons} persons on a page"/> <br/> 
-Page: <span id="page">1</span> <br/>
+Page: <span id="page">${pagenum}</span> <br/>
 <button id="brnPrint" class="btn-info" onclick="window.print();">Print</button> &nbsp;
 <button id="btnPrev" value ="<- Previous" class="btn-info" onclick="prev();"><- Previous</button> &nbsp;
 <button id="btnNext" value ="Next ->" class="btn-info" onclick="next();">Next -></button>

@@ -85,11 +85,34 @@ public class PersonController {
 		return "editPerson";
 	}
 
+	@RequestMapping(value="/editforprint/{id}/{page}", method=RequestMethod.GET)
+	public String handleEditForPrint(@PathVariable long id, @PathVariable long page, ModelMap model) {
+		Person p = personService.getPerson(id);
+		if (p == null) {
+			return "home";
+		}
+		model.addAttribute("person", p);
+		model.addAttribute("invitedMap", invited);
+		model.addAttribute("emailMap", emailed);
+		model.addAttribute("phoneMap", phonecalled);
+		model.addAttribute("ignorePrintMap", ignore);
+		model.addAttribute("printedMap", printed);
+		model.addAttribute("page", page);
+		return "editPersonForPrint";
+	}
+
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public void handleUpdate(@ModelAttribute("person") Person p, BindingResult result, Model model,
 			HttpServletResponse response) throws IOException {
 		personService.upadatePerson(p);
 		response.sendRedirect("/ui/invitations/viewinvitees");
+	}
+
+	@RequestMapping(value="/updateforprint/{page}", method=RequestMethod.POST)
+	public void handleUpdateForPrint(@ModelAttribute("person") Person p, BindingResult result, @PathVariable int page, Model model,
+			HttpServletResponse response) throws IOException {
+		personService.upadatePerson(p);
+		response.sendRedirect("/ui/invitations/printpreview/"+page);
 	}
 
 	@RequestMapping(value = "/getallpersons/{startPage}", method = RequestMethod.GET)
